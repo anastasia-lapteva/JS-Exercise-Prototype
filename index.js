@@ -103,12 +103,12 @@ function Car(model, milesPerGallon)
 
 Car.prototype.fill = function (gallons)
 {
-    this.tank += gallons;
+    return this.tank += gallons;
 };
 
 // Let's consider that our vehicle has a 15 gallon tank that lasts for 300 miles.
 // 15 gallons = 300 miles
-//  1 gallon  =   x miles
+// 1 gallon  =   x miles
 // x = 300 miles / 15 gallons = 20 miles per gallon
 
 Car.prototype.drive = function (distance)
@@ -143,6 +143,34 @@ while (continueDriving)
     if (message.startsWith("I ran out of fuel"))
         continueDriving = false;
 }
+// -----------------------------------------------------------------------------
+// function Car(info)
+// {
+//     this.model = info.model;
+//     this.milesPerGallon = info.milesPerGallon;
+//     this.tank = 0;
+//     this.odometer = 0;
+// };
+
+// Car.prototype.fill = function (gallons)
+// {
+//     return this.tank += gallons;
+// };
+
+// const carOne = new Car(
+//     {
+//         model: "Lada",
+//         milesPerGallon: 19,
+//     });
+
+// console.log("Task 2", carOne.fill(15));
+
+// function Car(info)
+// {
+//     this.model = info.model;
+//     this.milesPerGallon = info.milesPerGallon;
+// }
+// -----------------------------------------------------------------------------
 /*
   TASK 3
     - Write a Baby constructor subclassing Person.
@@ -176,10 +204,25 @@ console.log("Task 3:", babyName.name);
 /* 
   TASK 4
   In your own words explain the four principles for the "this" keyword below:
-  1. 
-  2. 
-  3. 
-  4. 
+
+  1. Window/ Global Object Binding
+  When in strict mode, 'this' will return undefined.
+  When not in strict mode, 'this' will return the window in node.
+  If we get either of these answers, it means we have not given 'this' any context so it is defaulting to the main window/ global object we are working inside of.
+  Window binding is an error, we do not want it to happen.
+
+  2. Implicit Binding
+  When the function is invoked, whatever is to the left of the dot (leftOfTheDot.this) is what is being referenced by 'this'.
+
+  3. New Binding
+  When a function is invoked as a constructor function using the 'new' keyword, 'this' will point to the new object that is created.
+  Building a constructor function is like building a template for new objects.
+  When we invoke the constructor function, the invocation builds a new object.
+  The 'this' keyword points to the new object that is created.
+
+  4. Explicit Binding
+  We explicitly assign the 'this' keyword using '.call', '.apply', or '.bind' methods.
+
 */
 
 
