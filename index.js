@@ -93,12 +93,56 @@ console.log(anastasia.toString());
         + The `drive` method should return a string "I ran out of fuel at x miles!" x being `odometer`.
 */
 
-function Car()
+function Car(model, milesPerGallon)
 {
-
+    this.model = model;
+    this.milesPerGallon = milesPerGallon;
+    this.tank = 0;
+    this.odometer = 0;
 }
 
+Car.prototype.fill = function (gallons)
+{
+    this.tank += gallons;
+};
 
+// Let's consider that our vehicle has a 15 gallon tank that lasts for 300 miles.
+// 15 gallons = 300 miles
+//  1 gallon  =   x miles
+// x = 300 miles / 15 gallons = 20 miles per gallon
+
+Car.prototype.drive = function (distance)
+{
+    this.odometer += distance;
+
+    const gallons = (distance / this.milesPerGallon);
+
+    if (this.tank >= gallons)
+    {
+        this.tank -= gallons;
+        return `I drove ${this.odometer} miles`;
+    }
+    else
+    {
+        this.tank = 0;
+        return `I ran out of fuel at ${this.odometer} miles!`;
+    }
+};
+
+const lexus = new Car("Lexus", 20);
+
+lexus.fill(15);
+
+let continueDriving = true;
+
+while (continueDriving)
+{
+    const message = lexus.drive(0.5);
+    console.log(message);
+
+    if (message.startsWith("I ran out of fuel"))
+        continueDriving = false;
+}
 /*
   TASK 3
     - Write a Baby constructor subclassing Person.
@@ -106,11 +150,28 @@ function Car()
     - Besides the methods on Person.prototype, babies have the ability to `.play()`:
         + Should return a string "Playing with x", x being the favorite toy.
 */
-function Baby()
+function Baby(attributes)
 {
-
+    Person.call(this, attributes);
+    this.favoriteToy = attributes.favoriteToy;
 }
 
+Baby.prototype = Object.create(Person.prototype);
+
+Baby.prototype.play = function ()
+{
+    return `Playing with ${this.favoriteToy}`;
+};
+
+const babyName = new Baby(
+    {
+        name: "Baybee",
+        age: "2",
+        favoriteToy: "Barbie"
+    });
+
+console.log("Task 3:", babyName.play());
+console.log("Task 3:", babyName.name);
 
 /* 
   TASK 4
